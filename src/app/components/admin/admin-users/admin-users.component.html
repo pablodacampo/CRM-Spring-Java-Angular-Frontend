@@ -1,0 +1,50 @@
+<ng-container *ngIf="this.users">
+  <!-- SEARCH BAR -->
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Role</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of this.users">
+        <td>{{ user.userId }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.telephone }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-info"
+            routerLink="/userdetails/{{ user.userId }}"
+          >
+            View
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-danger"
+            (click)="deleteUser(user)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="btn-toolbar row px-0 justify-content-md-center">
+    <button type="button" class="btn btn-success" routerLink="/userdetails">
+      Create New User
+    </button>
+  </div>
+</ng-container>

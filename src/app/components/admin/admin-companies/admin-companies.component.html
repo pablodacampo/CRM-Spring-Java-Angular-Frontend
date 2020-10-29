@@ -1,0 +1,50 @@
+<div *ngIf="this.companies">
+  <!-- SEARCH BAR -->
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Reference</th>
+        <th>Name</th>
+        <th>Website</th>
+        <th>Contact Name</th>
+        <th>Contact Number</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of this.companies">
+        <td>{{ company.companyId }}</td>
+        <td>{{ company.reference }}</td>
+        <td>{{ company.name }}</td>
+        <td>{{ company.website }}</td>
+        <td>{{ company.contactName }}</td>
+        <td>{{ company.contactTelephone }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-info"
+            routerLink="/companydetails/{{ company.companyId }}"
+          >
+            View
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-danger"
+            (click)="deleteCompany(company)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="btn-toolbar row px-0 justify-content-md-center">
+    <button type="button" class="btn btn-success" routerLink="/companydetails">
+      Create New Company
+    </button>
+  </div>
+</div>
