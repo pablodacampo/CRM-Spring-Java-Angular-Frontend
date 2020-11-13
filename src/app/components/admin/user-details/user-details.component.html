@@ -1,4 +1,4 @@
-<div *ngIf="this.user" class="col-10 mx-auto">
+<div *ngIf="this.user && this.roles" class="col-10 mx-auto">
   <div *ngIf="!this.newUser" class="row px-0">
     <label for="userId" class="col-4">ID : </label>
     <p class="col-8">{{ user.userId }}</p>
@@ -16,19 +16,34 @@
     <input type="text" class="col-8" [(ngModel)]="user.email" />
   </div>
   <div class="row px-0">
+    <label for="password" class="col-4">Password : </label>
+    <input type="password" class="col-8" [(ngModel)]="user.password" />
+  </div>
+  <div class="row px-0">
     <label for="telephone" class="col-4">Telephone : </label>
     <input type="text" class="col-8" [(ngModel)]="user.telephone" />
   </div>
   <div class="row px-0">
     <label for="role" class="col-4">Role : </label>
-    <input type="text" class="col-8" [(ngModel)]="user.role" />
+    <select (change)="user.role = $event.target.value">
+      <option *ngFor="let role of roles" [value]="role">
+        {{ role }}
+      </option>
+    </select>
   </div>
 </div>
-<div class="btn-toolbar row px-0 justify-content-md-center">
-  <button type="button" class="btn btn-success mr-1" (click)="updateUser()">
+<div class="btn-toolbar row px-0 justify-content-md-center my-4">
+  <button
+    type="button"
+    class="btn btn-success mr-1"
+    (click)="this.newUser ? createUser() : updateUser()"
+  >
     Save
   </button>
   <button type="button" class="btn btn-secondary" (click)="goBack()">
     Go Back
   </button>
+</div>
+<div class="col-8 mx-auto">
+  <app-address-details [entity]="this.user"></app-address-details>
 </div>

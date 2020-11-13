@@ -1,4 +1,6 @@
-import { Company } from './../../../models/company.model';
+import { Router } from '@angular/router';
+import { LoginRequest } from './../../../models/login-request.model';
+import { LoginService } from 'src/app/services/login.service';
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,10 +13,22 @@ import { Component, OnInit } from '@angular/core';
 export class AdminUsersComponent implements OnInit {
 
   users: User[];
+  currentUser: User;
+  loginRequest: LoginRequest;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.loginService.getCurrentUser().subscribe((user: User) => {
+      if (user) {
+        this.currentUser = user;
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
     this.getUsers();
   }
 
@@ -30,6 +44,5 @@ export class AdminUsersComponent implements OnInit {
       this.users.splice(index, 1);
     });
   }
-
 
 }

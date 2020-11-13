@@ -13,6 +13,9 @@ import { RouterModule } from '@angular/router';
 import { UserDetailsComponent } from './components/admin/user-details/user-details.component';
 import { CompanyDetailsComponent } from './components/admin/company-details/company-details.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/core/login/login.component';
+import { NavbarComponent } from './components/core/navbar/navbar.component';
+import { AddressDetailsComponent } from './components/core/address-details/address-details.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { FormsModule } from '@angular/forms';
     AdminUsersComponent,
     AdminCompaniesComponent,
     UserDetailsComponent,
-    CompanyDetailsComponent
+    CompanyDetailsComponent,
+    LoginComponent,
+    NavbarComponent,
+    AddressDetailsComponent
   ],
   imports: [
     BrowserModule,

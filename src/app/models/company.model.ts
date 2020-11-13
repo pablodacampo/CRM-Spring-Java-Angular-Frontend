@@ -1,7 +1,8 @@
+import { AddressEntity } from './../interfaces/address-entity';
 import { Address } from './address.model';
 import { User } from './user.model';
 
-export class Company {
+export class Company implements AddressEntity {
 
   companyId: number;
   reference: string;

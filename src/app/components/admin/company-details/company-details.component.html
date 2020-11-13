@@ -37,11 +37,21 @@
   </div>
   <div class="row px-0">
     <label for="callLast" class="col-4">Last Called : </label>
-    <input type="text" class="col-8" [(ngModel)]="company.callLast" />
+    <input
+      type="date"
+      class="col-8"
+      [ngModel]="company.callLast | date: 'yyyy-MM-dd'"
+      (ngModelChange)="company.callLast = $event"
+    />
   </div>
   <div class="row px-0">
     <label for="visitLast" class="col-4">Last Visited : </label>
-    <input type="text" class="col-8" [(ngModel)]="company.visitLast" />
+    <input
+      type="date"
+      class="col-8"
+      [ngModel]="company.visitLast | date: 'yyyy-MM-dd'"
+      (ngModelChange)="company.visitLast = $event"
+    />
   </div>
   <div class="row px-0">
     <label for="messages" class="col-4">Notes : </label>
@@ -64,7 +74,7 @@
     <input type="text" class="col-8" [(ngModel)]="company.salesTotal" />
   </div>
 </div>
-<div class="btn-toolbar row px-0 justify-content-md-center">
+<div class="btn-toolbar row px-0 justify-content-md-center mt-3 mb-5">
   <button
     type="button"
     class="btn btn-success mr-1"
@@ -75,4 +85,7 @@
   <button type="button" class="btn btn-secondary" (click)="goBack()">
     Go Back
   </button>
+</div>
+<div class="col-8 mx-auto">
+  <app-address-details [entity]="this.company"></app-address-details>
 </div>

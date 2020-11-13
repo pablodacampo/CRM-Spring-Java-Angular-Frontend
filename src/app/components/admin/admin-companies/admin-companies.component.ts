@@ -1,3 +1,6 @@
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
+import { User } from './../../../models/user.model';
 import { Company } from './../../../models/company.model';
 import { CompanyService } from './../../../services/company.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,11 +15,22 @@ import { first, take, tap } from 'rxjs/operators';
 export class AdminCompaniesComponent implements OnInit {
 
   companies: Company[];
+  currentUser: User;
 
-  constructor(private companyService: CompanyService) { }
+  constructor(
+    private companyService: CompanyService,
+    public loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getCompanies();
+    this.loginService.getCurrentUser().subscribe((user: User) => {
+      if (user) {
+        this.currentUser = user;
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   private getCompanies(): void {
