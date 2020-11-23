@@ -4,8 +4,6 @@ import { User } from './../../../models/user.model';
 import { Company } from './../../../models/company.model';
 import { CompanyService } from './../../../services/company.service';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { first, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-companies',
@@ -23,7 +21,6 @@ export class AdminCompaniesComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getCompanies();
     this.loginService.getCurrentUser().subscribe((user: User) => {
       if (user) {
         this.currentUser = user;
@@ -31,6 +28,7 @@ export class AdminCompaniesComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
+    this.getCompanies();
   }
 
   private getCompanies(): void {
@@ -40,7 +38,7 @@ export class AdminCompaniesComponent implements OnInit {
   }
 
   public deleteCompany(company: Company): void {
-    this.companyService.deleteCompany(company.companyId).subscribe(() => {
+    this.companyService.deleteCompany(company.id).subscribe(() => {
       const index = this.companies.indexOf(company);
       this.companies.splice(index, 1);
     });

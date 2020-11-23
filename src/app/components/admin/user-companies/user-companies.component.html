@@ -1,0 +1,95 @@
+<div *ngIf="this.userCompanies" class="col-10 mx-auto mt-3">
+  <!-- SEARCH BAR -->
+  <h4 class="text-center">Companies</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Reference</th>
+        <th>Name</th>
+        <th>Website</th>
+        <th>Contact Name</th>
+        <th>Contact Number</th>
+        <th colspan="2" class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of this.userCompanies">
+        <td>{{ company.id }}</td>
+        <td>{{ company.reference }}</td>
+        <td>{{ company.name }}</td>
+        <td>{{ company.website }}</td>
+        <td>{{ company.contactName }}</td>
+        <td>{{ company.contactTelephone }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-info"
+            routerLink="/companydetails/{{ company.id }}"
+          >
+            View
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            (click)="removeCompanyFromUser(this.user.id, company.id)"
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row px-0">
+    <h5 class="text-center">Add Company</h5>
+  </div>
+  <div class="row text-left">
+    <input
+      #searchTerm
+      type="text"
+      placeholder="Search for companies"
+      class="form-control text-center"
+      (input)="searchCompanies(searchTerm.value)"
+    />
+  </div>
+  <table
+    *ngIf="this.companiesFoundInSearch?.length > 0"
+    class="table table-striped"
+  >
+    <thead>
+      <tr>
+        <th>ID :</th>
+        <th>Reference :</th>
+        <th>Name :</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of this.companiesFoundInSearch">
+        <td>{{ company.id }}</td>
+        <td>{{ company.reference }}</td>
+        <td>{{ company.name }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-success"
+            (click)="addCompanyToUser(this.user.id, company.id)"
+          >
+            Add
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row px-0 justify-content-md-center mt-3">
+    <button
+      type="button"
+      class="btn btn-outline-danger mx-auto"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

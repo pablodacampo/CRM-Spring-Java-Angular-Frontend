@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         if (user.role === Role.MANAGER) {
           this.router.navigate(['/users']);
         } else if (user.role === Role.SALES) {
-          this.router.navigate(['/companies']);
+          this.router.navigate(['/mycompanies']);
         } else {
           // Option not currently used as only two Roles
         }

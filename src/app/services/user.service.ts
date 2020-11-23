@@ -1,6 +1,6 @@
 import { first } from 'rxjs/operators';
 import { Address } from './../models/address.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpService } from './http.service';
 import { Company } from './../models/company.model';
 import { User } from './../models/user.model';
@@ -23,6 +23,13 @@ export class UserService {
       first());
   }
 
+  public searchUsers(searchTerm: string): Observable<User[]> {
+    if (!searchTerm?.trim()) {
+      return of([]);
+    }
+    return this.http.get(`users/search?term=${searchTerm}`).pipe(first());
+  }
+
   public createUser(user: User): Observable<User> {
     return this.http.post('users', user).pipe(
       first());
@@ -43,13 +50,13 @@ export class UserService {
       first());
   }
 
-  public addCompanyToUser(userId: number, company: Company): Observable<Company> {
-    return this.http.post(`users/${userId}/companies`, company).pipe(
+  public addCompanyToUser(userId: number, companyId: number): Observable<Company> {
+    return this.http.post(`users/${userId}/companies/${companyId}`, null).pipe(
       first());
   }
 
-  public removeCompanyFromUser(userId: number, companyId: number): void {
-    this.http.delete(`users/${userId}/companies/${companyId}`).pipe(
+  public removeCompanyFromUser(userId: number, companyId: number): Observable<Company> {
+    return this.http.delete(`users/${userId}/companies/${companyId}`).pipe(
       first());
   }
 

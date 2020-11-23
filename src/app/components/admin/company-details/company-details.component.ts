@@ -1,5 +1,5 @@
+import { Role } from './../../../enums/role.enum';
 import { LoginService } from 'src/app/services/login.service';
-import { LoginRequest } from './../../../models/login-request.model';
 import { User } from './../../../models/user.model';
 import { Company } from './../../../models/company.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,9 +15,12 @@ import { Location } from '@angular/common';
 export class CompanyDetailsComponent implements OnInit {
 
   company: Company;
-  users: User[];
+  companyUsers: User[];
   newCompany: boolean;
   currentUser: User;
+  showAddress: boolean;
+  showUsers: boolean;
+  isCurrentUserManager: boolean;
 
   constructor(
     private companyService: CompanyService,
@@ -27,14 +30,17 @@ export class CompanyDetailsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getCompanyById();
+    this.showAddress = false;
+    this.showUsers = false;
     this.loginService.getCurrentUser().subscribe((user: User) => {
       if (user) {
         this.currentUser = user;
+        this.isCurrentUserManager = this.currentUser.role === Role.MANAGER;
       } else {
         this.router.navigate(['/login']);
       }
     });
+    this.getCompanyById();
   }
 
     private getCompanyById(): void {
@@ -43,7 +49,6 @@ export class CompanyDetailsComponent implements OnInit {
         this.companyService.getCompanyById(companyId).subscribe((company: Company) => {
           this.company = company;
           this.newCompany = false;
-          this.getUsersByCompanyId();
       });
       } else {
         this.company = new Company();
@@ -52,7 +57,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   public createCompany(): void {
-    this.companyService.createCompany(1, this.company).subscribe(() => {
+    this.companyService.createCompany(this.currentUser.id, this.company).subscribe(() => {
       this.goBack();
     });
   }
@@ -63,22 +68,13 @@ export class CompanyDetailsComponent implements OnInit {
     });
   }
 
-    private getUsersByCompanyId(): void {
-      const companyId: number = +this.route.snapshot.paramMap.get('companyId');
-      this.companyService.getUsersByCompanyId(companyId).subscribe((users: User[]) => {
-        this.users = users;
-      });
-    }
+  public receiveAddressMessage(visible: boolean): void {
+    this.showAddress = visible;
+  }
 
-
-  // private createCompanyAddress(): Company {
-  //   return this.companyService.createCompanyAddress();
-  // }
-
-  // private updateCompanyAddress(): Company {
-  //   return this.companyService.updateCompanyAddress();
-  // }
-
+  public receiveUserMessage(visible: boolean): void {
+    this.showUsers = visible;
+  }
 
   public goBack(): void {
     this.location.back();

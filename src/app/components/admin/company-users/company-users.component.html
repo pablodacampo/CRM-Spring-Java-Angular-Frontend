@@ -1,0 +1,93 @@
+<div *ngIf="this.companyUsers" class="col-8 mx-auto mt-3">
+  <!-- SEARCH BAR -->
+  <h4 class="text-center">Users</h4>
+  <table class="table table-striped px-0 mx-0">
+    <thead>
+      <tr>
+        <th>ID :</th>
+        <th>Name :</th>
+        <th>Surname :</th>
+        <th>Email :</th>
+        <th>Number :</th>
+        <th colspan="2" class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of this.companyUsers">
+        <td>{{ user.id }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.telephone }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-info"
+            routerLink="/userdetails/{{ user.id }}"
+          >
+            View
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            (click)="removeUserFromCompany(this.company.id, user.id)"
+          >
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row px-0">
+    <h5 class="text-center">Add User</h5>
+  </div>
+  <div class="row text-left">
+    <input
+      #searchTerm
+      type="text"
+      placeholder="Search for users"
+      class="form-control text-center"
+      (input)="searchUsers(searchTerm.value)"
+    />
+  </div>
+  <table
+    *ngIf="this.usersFoundInSearch?.length > 0"
+    class="table table-striped"
+  >
+    <thead>
+      <tr>
+        <th>ID :</th>
+        <th>Name :</th>
+        <th>Surname :</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of this.usersFoundInSearch">
+        <td>{{ user.id }}</td>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-success"
+            (click)="addUserToCompany(this.company.id, user.id)"
+          >
+            Add
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row px-0 justify-content-md-center mt-3">
+    <button
+      type="button"
+      class="btn btn-outline-danger mx-auto"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

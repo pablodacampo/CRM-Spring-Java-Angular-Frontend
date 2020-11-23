@@ -1,0 +1,7 @@
+<div *ngIf="currentUser">
+  <h2>Welcome Back {{ this.currentUser.firstName }}!</h2>
+  <app-user-companies
+    class="row px-0"
+    [user]="this.currentUser"
+  ></app-user-companies>
+</div>

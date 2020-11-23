@@ -48,6 +48,12 @@ export class LoginService {
     this.userSource.next(user);
   }
 
+  public isLoggedIn(): boolean {
+    const user: string = this.cookieService.get('user');
+    const isLoggedIn =  user?.length > 0;
+    return isLoggedIn;
+  }
+
   public logOut(): void {
     this.userSource.next(null);
     this.cookieService.delete('user');

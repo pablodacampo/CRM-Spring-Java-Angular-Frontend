@@ -16,6 +16,9 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/core/login/login.component';
 import { NavbarComponent } from './components/core/navbar/navbar.component';
 import { AddressDetailsComponent } from './components/core/address-details/address-details.component';
+import { UserCompaniesComponent } from './components/admin/user-companies/user-companies.component';
+import { CompanyUsersComponent } from './components/admin/company-users/company-users.component';
+import { MyCompaniesComponent } from './components/admin/my-companies/my-companies.component';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import { AddressDetailsComponent } from './components/core/address-details/addre
     CompanyDetailsComponent,
     LoginComponent,
     NavbarComponent,
-    AddressDetailsComponent
+    AddressDetailsComponent,
+    UserCompaniesComponent,
+    CompanyUsersComponent,
+    MyCompaniesComponent
   ],
   imports: [
     BrowserModule,

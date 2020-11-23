@@ -1,1 +1,52 @@
-<p *ngIf="entity?.address">User telelphone: {{ entity.address.addressId }}</p>
+<div *ngIf="userOrCompany?.address" class="col-5 mx-auto">
+  <h4 class="text-center">Address</h4>
+  <div class="row px-0">
+    <label for="streetNumber" class="col-4 px-0">Street Number : </label>
+    <input
+      type="text"
+      class="col-8 px-0 form-control"
+      [(ngModel)]="userOrCompany.address.streetNumber"
+    />
+  </div>
+  <div class="row px-0">
+    <label for="streetName" class="col-4 px-0">Street Name : </label>
+    <input
+      type="text"
+      class="col-8 px-0 form-control"
+      [(ngModel)]="userOrCompany.address.streetName"
+    />
+  </div>
+  <div class="row px-0">
+    <label for="city" class="col-4 px-0">City : </label>
+    <input
+      type="text"
+      class="col-8 px-0 form-control"
+      [(ngModel)]="userOrCompany.address.city"
+    />
+  </div>
+  <div class="row px-0">
+    <label for="postcode" class="col-4 px-0">Post Code : </label>
+    <input
+      type="text"
+      class="col-8 px-0 form-control"
+      [(ngModel)]="userOrCompany.address.postcode"
+    />
+  </div>
+  <div class="row px-0">
+    <label for="region" class="col-4 px-0">Region : </label>
+    <input
+      type="text"
+      class="col-8 px-0 form-control"
+      [(ngModel)]="userOrCompany.address.region"
+    />
+  </div>
+  <div class="row px-0 justify-content-md-center mt-3">
+    <button
+      type="button"
+      class="btn btn-outline-danger mx-auto"
+      (click)="cancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

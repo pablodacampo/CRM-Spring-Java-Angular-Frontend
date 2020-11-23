@@ -31,16 +31,21 @@ export class NavbarComponent implements OnInit {
       if (user) {
         this.currentUser = user;
       } else {
+        this.currentUser = null;
         this.router.navigate(['/login']);
       }
     });
   }
+
+  public isLoggedIn(): boolean {
+    return this.loginService.isLoggedIn();
+  }
+
   public isCurrentUserManager(): boolean {
-    return this.currentUser.role === Role.MANAGER.toString();
+    return this.currentUser?.role === Role.MANAGER.toString();
   }
   public logout(): void {
     this.loginService.logOut();
-    this.currentUser = null;
   }
 
 }

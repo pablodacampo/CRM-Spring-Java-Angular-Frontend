@@ -12,7 +12,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div
-    *ngIf="this.currentUser"
+    *ngIf="isLoggedIn() && this.currentUser"
     class="collapse navbar-collapse"
     id="navbarNavAltMarkup"
   >
@@ -20,13 +20,20 @@
       <a *ngIf="isCurrentUserManager()" class="nav-link" routerLink="/users"
         >Users</a
       >
-      <a class="nav-link" routerLink="/companies">Companies</a>
+      <a *ngIf="isCurrentUserManager()" class="nav-link" routerLink="/companies"
+        >Companies</a
+      >
+      <a class="nav-link" routerLink="/mycompanies">My Companies</a>
     </div>
     <div
       class="col-4 row px-0 mx-0 ml-auto align-items-center justify-content-end"
     >
       {{ currentUser.firstName }} {{ currentUser.lastName }}
-      <button class="btn btn-sm btn-info ml-3" type="submit" (click)="logout()">
+      <button
+        class="btn btn-sm btn-outline-info ml-3"
+        type="submit"
+        (click)="logout()"
+      >
         Logout
       </button>
     </div>

@@ -15,10 +15,12 @@ import { Location } from '@angular/common';
 export class UserDetailsComponent implements OnInit {
 
   user: User;
+  userCompanies: Company;
   roles: string[];
-  companies: Company[];
   newUser: boolean;
   currentUser: User;
+  showAddress: boolean;
+  showCompanies: boolean;
 
   constructor(
     private userService: UserService,
@@ -28,16 +30,18 @@ export class UserDetailsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.loginService.getAllRoles().subscribe((roles: Role[]) => {
-      this.roles = roles;
-      this.getUserById();
-    });
+    this.showAddress = false;
+    this.showCompanies = false;
     this.loginService.getCurrentUser().subscribe((user: User) => {
       if (user) {
         this.currentUser = user;
       } else {
         this.router.navigate(['/login']);
       }
+    });
+    this.loginService.getAllRoles().subscribe((roles: Role[]) => {
+      this.roles = roles;
+      this.getUserById();
     });
   }
 
@@ -48,7 +52,6 @@ export class UserDetailsComponent implements OnInit {
       this.user = user;
       this.newUser = false;
       this.arrangeRoles();
-      this.getCompaniesByUserId();
     });
     } else {
       this.user = new User();
@@ -77,31 +80,13 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
-  private getCompaniesByUserId(): void {
-    const userId: number = +this.route.snapshot.paramMap.get('userId');
-    this.userService.getCompaniesByUserId(userId).subscribe((companies: Company[]) => {
-      this.companies = companies;
-
-    });
+  public receiveAddressMessage(visible: boolean): void {
+    this.showAddress = visible;
   }
 
-
-  // private addCompanyToUser(): Company {
-  //   return this.userService.addCompanyToUser();
-  // }
-
-  // private removeCompanyFromUser(): void {
-  //   return this.userService.removeCompanyFromUser();
-  // }
-
-  // private createUserAddress(): User {
-  //   return this.userService.createUserAddress();
-  // }
-
-  // private updateUserAddress(): User {
-  //   return this.userService.updateUserAddress();
-  // }
-
+  public receiveCompanyMessage(visible: boolean): void {
+    this.showCompanies = visible;
+  }
 
   public goBack(): void {
     this.location.back();

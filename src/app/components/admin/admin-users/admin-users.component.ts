@@ -39,7 +39,7 @@ export class AdminUsersComponent implements OnInit {
   }
 
   public deleteUser(user: User): void {
-    this.userService.deleteUser(user.userId).subscribe(() => {
+    this.userService.deleteUser(user.id).subscribe(() => {
       const index = this.users.indexOf(user);
       this.users.splice(index, 1);
     });

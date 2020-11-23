@@ -4,7 +4,8 @@ import { User } from './user.model';
 
 export class Company implements AddressEntity {
 
-  companyId: number;
+  id: number;
+  entityType: any;
   reference: string;
   name: string;
   owner: string;
@@ -22,4 +23,8 @@ export class Company implements AddressEntity {
   salesTotal: number;
   address: Address;
   users: User[];
+
+  constructor() {
+    this.entityType = Company;
+  }
 }

@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let company of this.companies">
-        <td>{{ company.companyId }}</td>
+        <td>{{ company.id }}</td>
         <td>{{ company.reference }}</td>
         <td>{{ company.name }}</td>
         <td>{{ company.website }}</td>
@@ -24,8 +24,8 @@
         <td>
           <button
             type="button"
-            class="btn btn-sm btn-info"
-            routerLink="/companydetails/{{ company.companyId }}"
+            class="btn btn-sm btn-outline-info"
+            routerLink="/companydetails/{{ company.id }}"
           >
             View
           </button>
@@ -33,7 +33,7 @@
         <td>
           <button
             type="button"
-            class="btn btn-sm btn-danger"
+            class="btn btn-sm btn-outline-danger"
             (click)="deleteCompany(company)"
           >
             Delete
@@ -43,7 +43,11 @@
     </tbody>
   </table>
   <div class="btn-toolbar row px-0 justify-content-md-center">
-    <button type="button" class="btn btn-success" routerLink="/companydetails">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      routerLink="/companydetails"
+    >
       Create New Company
     </button>
   </div>
